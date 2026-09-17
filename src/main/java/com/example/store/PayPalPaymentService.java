@@ -1,9 +1,12 @@
 package com.example.store;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author Megumin
  * @create 2026-09-17 3:03 PM
  */
+@Service
 public class PayPalPaymentService implements PaymentService {
 
     @Override
