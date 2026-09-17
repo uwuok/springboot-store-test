@@ -2,20 +2,21 @@ package com.example.store;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class StoreApplication {
 
     public static void main(String[] args) {
 
-//        SpringApplication.run(StoreApplication.class, args);
-        var orderService = new OrderService();
+        ApplicationContext context = SpringApplication.run(StoreApplication.class, args);
+        // 透過手動創建的 Java Object 對象需要自行管理
+//        var orderService = new OrderService(new PayPalPaymentService());
 
-        // 這種實現方法如果忘記傳入參數會有 NULL pointer exception
-        // 在這種情況下 Payment service 是必須依賴項，而非可選的
-        // 所以在這種情況下使用 setter inject 是沒有意義的
-        // 再者，多數情況下還是用 constructor injection
-        orderService.setPaymentService(new PayPalPaymentService());
+        // Inversion of Control (IOC)
+        // 反轉了物件的生命週期，和注入依賴
+        // 讓 Spring 來處理好這件事
+        var orderService = context.getBean(OrderService.class);
         orderService.placeOrder();
     }
 

@@ -10,17 +10,13 @@ public class OrderService {
 
 
     // 透過 constructor 進行 dependency injection
-//    public OrderService(PaymentService paymentService) {
-//        this.paymentService = paymentService;
-//    }
+    public OrderService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
     public void placeOrder() {
 //        var paymentService = new StripePaymentService();
         paymentService.processPayment(10);
 
-    }
-
-    public void setPaymentService(PaymentService paymentService) {
-        this.paymentService = paymentService;
     }
 }
